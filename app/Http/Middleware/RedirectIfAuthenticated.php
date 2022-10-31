@@ -23,9 +23,14 @@ class RedirectIfAuthenticated
             return redirect('admin/profile');
         }
 
-        if ($guard == "user" && Auth::guard($guard)->check()) {
-            return redirect('user/profile');
+        if ($guard == "professor" && Auth::guard($guard)->check()) {
+            return redirect('professor/profile');
         }
+
+        if ($guard == "student" && Auth::guard($guard)->check()) {
+            return redirect('student/profile');
+        }
+
         if (Auth::guard($guard)->check()) {
             return redirect()->route('home');
         }

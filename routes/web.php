@@ -15,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::middleware(['guest:admin', 'guest:user'])->group(function () {
+Route::middleware(['guest:admin', 'guest:student' , 'guest:professor'])->group(function () {
     Route::get('/admin/login', 'AdminController@showLoginForm')->name('admin.login');
-    Route::get('/user/login', 'UserController@showLoginForm')->name('user.login');
-    Route::get('/user/register', 'UserController@showRegisterForm')->name('user.register');
+    Route::get('/student/login', 'StudentController@showLoginForm')->name('student.login');
+    Route::get('/student/register', 'StudentController@showRegisterForm')->name('student.register');
+    Route::get('/professor/login', 'ProfessorController@showLoginForm')->name('professor.login');
+    Route::get('/professor/register', 'ProfessorController@showRegisterForm')->name('professor.register');
 });
 
 
@@ -31,9 +33,16 @@ Route::middleware(['auth:admin'])->name('admin.')->prefix('admin')->group(functi
 });
 
 
-Route::middleware(['auth:user'])->name('user.')->prefix('user')->group(function () {
-    Route::get('/profile','UserController@profile')->name('profile');
-    Route::get('/settings','UserController@settings')->name('settings');
-    Route::get('/changePassword','UserController@changePassword')->name('changePassword');
-    Route::get('/logout','UserController@logout')->name('logout');
+Route::middleware(['auth:student'])->name('student.')->prefix('student')->group(function () {
+    Route::get('/profile','StudentController@profile')->name('profile');
+    Route::get('/settings','StudentController@settings')->name('settings');
+    Route::get('/changePassword','StudentController@changePassword')->name('changePassword');
+    Route::get('/logout','StudentController@logout')->name('logout');
+});
+
+Route::middleware(['auth:professor'])->name('professor.')->prefix('professor')->group(function () {
+    Route::get('/profile','ProfessorController@profile')->name('profile');
+    Route::get('/settings','ProfessorController@settings')->name('settings');
+    Route::get('/changePassword','ProfessorController@changePassword')->name('changePassword');
+    Route::get('/logout','ProfessorController@logout')->name('logout');
 });

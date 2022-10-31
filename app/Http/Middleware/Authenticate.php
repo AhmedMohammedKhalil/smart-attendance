@@ -22,8 +22,14 @@ class Authenticate extends Middleware
             return redirect('/');
         }
 
-        if ($request->is('user') || $request->is('user/*')) {
-            if(Auth::guard('user')->check())
+        if ($request->is('student') || $request->is('student/*')) {
+            if(Auth::guard('student')->check())
+                return $next($request);
+            return redirect('/');
+        }
+
+        if ($request->is('professor') || $request->is('professor/*')) {
+            if(Auth::guard('professor')->check())
                 return $next($request);
             return redirect('/');
         }

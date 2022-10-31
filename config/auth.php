@@ -40,11 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'user' => [
+        'professor' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'professors',
         ],
-
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
@@ -71,9 +74,13 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'professors' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Professor::class,
+        ],
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Student::class,
         ],
         'admins' => [
             'driver' => 'eloquent',

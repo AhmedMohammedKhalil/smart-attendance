@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'asset_url' => 'http://localhost/project/public',
+    'asset_url' => 'http://localhost/smart-attendance/public',
 
     /*
     |--------------------------------------------------------------------------

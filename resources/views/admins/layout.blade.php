@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('content')
+@section('main')
     <div>{{ $page_name }}</div>
     <div>
         @include('admins.menu')
