@@ -28,7 +28,7 @@ class Login extends Component
 
     public function login(){
         $validatedData = $this->validate();
-        if(Auth::guard('admin')->attempt($validatedData)){
+        if(auth('admin')->attempt($validatedData)){
 
             session()->flash('message', "تم دخولك ينجاح");
             return redirect()->route('home');

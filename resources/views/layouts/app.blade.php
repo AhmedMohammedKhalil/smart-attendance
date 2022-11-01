@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -39,6 +40,20 @@
     <title>{{ config('app.name', 'Smart Attendance') }}</title>
 
     @livewireStyles
+    <style>
+        .page-title-area {
+            margin-top: 100px
+        }
+
+        .nice-select span {
+            display: block;
+            color: black;
+        }
+
+        span.odometer {
+            direction: ltr;
+        }
+    </style>
     @stack('css')
 </head>
 
@@ -65,6 +80,7 @@
                     <div class="collapse navbar-collapse mean-menu">
 
                         <ul class="navbar-nav m-auto">
+                            @if (!auth('student')->check() && !auth('professor')->check() && !auth('admin')->check())
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     تسجيل دخول
@@ -75,13 +91,66 @@
                                         <a href="{{ route('admin.login') }}" class="nav-link">الأدمن</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('professor.login') }}" class="nav-link">عضو هيئة التدريس</a>
+                                        <a href="{{ route('professor.login') }}" class="nav-link">عضو هيئة
+                                            التدريس</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('student.login') }}" class="nav-link">الطالب</a>
                                     </li>
                                 </ul>
                             </li>
+                            @endif
+                            @auth('admin')
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    {{ Auth::guard('admin')->user()->name }}
+                                    <i class="bx bx-chevron-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.dashboard') }}" class="nav-link">لوحة التحكم</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.logout') }}" class="nav-link">خروج</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            @endauth
+                            @auth('professor')
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    {{ Auth::guard('professor')->user()->name }}
+                                    <i class="bx bx-chevron-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a href="{{ route('professor.profile') }}" class="nav-link">البروفايل</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('professor.logout') }}" class="nav-link">خروج</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            @endauth
+                            @auth('student')
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    {{ Auth::guard('student')->user()->name }}
+                                    <i class="bx bx-chevron-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a href="{{ route('student.profile') }}" class="nav-link">البروفايل</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('student.logout') }}" class="nav-link">خروج</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            @endauth
                             <li class="nav-item">
                                 <a href="{{ route('home') }}" class="nav-link">الرئيسية</a>
                             </li>

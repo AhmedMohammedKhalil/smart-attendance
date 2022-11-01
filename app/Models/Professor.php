@@ -23,7 +23,8 @@ class Professor extends Authenticatable
         'password',
         'photo',
         'phone',
-        'address'
+        'gender',
+        'department_id'
 
     ];
 
@@ -35,6 +36,12 @@ class Professor extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+
+
+    public function department() {
+        return $this->belongsTo(Department::class);
+    }
 
 
 }

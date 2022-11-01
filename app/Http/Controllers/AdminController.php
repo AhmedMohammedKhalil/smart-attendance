@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Department;
+use App\Models\Professor;
+use App\Models\Student;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,8 +18,12 @@ class AdminController extends Controller
     public function dashboard() {
 
         $page_name = 'الإحصائيات';
-        $user_count = User::all()->count();
-        return view('admins.dashboard',compact('page_name','user_count'));
+        $student_count = Student::all()->count();
+        $professor_count =  Professor::all()->count();
+        $subject_count =  Subject::all()->count();
+        $department_count = Department::all()->count();
+
+        return view('admins.dashboard',compact('page_name','student_count','professor_count','subject_count','department_count'));
     }
 
     public function profile() {

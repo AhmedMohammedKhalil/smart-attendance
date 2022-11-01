@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Professor;
 
+use App\Models\Department;
 use App\Models\Professor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -9,7 +10,7 @@ use Livewire\Component;
 
 class Register extends Component
 {
-    public $name, $email, $password, $confirm_password, $phone, $address;
+    public $name, $email, $password, $confirm_password, $phone, $department_id, $gender, $departments;
 
 
     protected $rules = [
@@ -18,7 +19,9 @@ class Register extends Component
         'email'   => 'required|email|unique:professors,email',
         'password' => ['required', 'string', 'min:8'],
         'confirm_password' => ['required', 'string', 'min:8','same:password'],
-        'address' => ['required', 'string', 'max:255'],
+        'department_id' => ['required','gt:0'],
+        'gender' => ['required','gt:0'],
+
 
     ];
 
@@ -34,25 +37,27 @@ class Register extends Component
         'image.max' => 'يجب ان تكون الصورة اصغر من 2 ميجا',
         'regex' => 'لا بد ان يكون الحقل ارقام فقط',
         'max' => 'لابد ان يكون الحقل مكون على الاكثر من 255 خانة',
+        'gender.gt' => 'لابد ان يتم الاختيار النوع',
+        'department_id.gt' => 'لابد ان يتم الاختيار القسم'
     ];
 
 
     public function register(){
+
         $validatedData = $this->validate();
+
+
         $data = array_merge(
             $validatedData,
-            ['password' => Hash::make($this->password)]
+            ['password' => Hash::make($this->password) , 'gender' => $this->gender == 1 ? 'ذكر': 'انثى']
         );
-        //dd($data);
         Professor::create($data);
-        if(Auth::guard('professor')->attempt($validatedData)){
-            session()->flash('message', "You are Login successful.");
-            return redirect()->route('home');
-        }
+        return redirect()->route('professor.login');
     }
 
     public function render()
     {
+        $this->departments = Department::all();
         return view('livewire.professor.register');
     }
 }

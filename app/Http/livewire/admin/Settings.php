@@ -15,11 +15,9 @@ class Settings extends Component
 
 
     public function mount() {
-        $this->admin_id = Auth::guard('admin')->user()->id;
-        $this->name = Auth::guard('admin')->user()->name;
-        $this->email = Auth::guard('admin')->user()->email;
-        $this->address = Auth::guard('admin')->user()->address;
-
+        $this->admin_id = auth('admin')->user()->id;
+        $this->name = auth('admin')->user()->name;
+        $this->email = auth('admin')->user()->email;
     }
 
     protected $messages = [
@@ -28,7 +26,7 @@ class Settings extends Component
         'email' => 'هذا الإيميل غير صحيح',
         'name.max' => 'لابد ان يكون الحقل مكون على الاكثر من 50 خانة',
         'unique' => 'هذا الايميل مسجل فى الموقع',
-        'image' => 'لابد ان يكون المف صورة',
+        'image' => 'لابد ان يكون الملف صورة',
         'mimes' => 'لابد ان يكون الصورة jpeg,jpg,png',
         'image.max' => 'يجب ان تكون الصورة اصغر من 2 ميجا'
     ];
@@ -37,10 +35,11 @@ class Settings extends Component
         'name' => ['required', 'string', 'max:50'],
     ];
 
+
     public function updatedPhoto()
     {
             $validatedata = $this->validate(
-                ['photo' => ['image','mimes:jpeg,jpg,png','max:2048']]
+                ['photo' => ['mimes:jpeg,jpg,png','max:2048']]
             );
     }
 
@@ -60,8 +59,9 @@ class Settings extends Component
                 File::deleteDirectories($dir);
             else
                 mkdir($dir);
-            $this->photo->storeAs($dir,$photoname);
-            File::deleteDirectory(public_path('uploads/livewire-tmp'));
+
+            $this->photo->storeAs('img/admins/'.$this->admin_id,$photoname);
+            File::deleteDirectory(public_path('livewire-tmp'));
         }
         session()->flash('message', "Your Profile Updated.");
         return redirect()->route('admin.profile');

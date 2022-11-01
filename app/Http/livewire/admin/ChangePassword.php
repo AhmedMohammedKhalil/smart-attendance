@@ -13,7 +13,7 @@ class ChangePassword extends Component
 
 
     public function mount() {
-        $this->admin_id = Auth::guard('admin')->user()->id;
+        $this->admin_id = Auth('admin')->user()->id;
     }
 
 

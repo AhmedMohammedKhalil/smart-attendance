@@ -11,7 +11,7 @@
     });
 
     // Nice Select JS
-    $('select').niceSelect();
+    // $('select').niceSelect();
 
     // Header Sticky JS
     $(window).on('scroll', function() {
@@ -324,6 +324,8 @@
             $(this).html(countNumber);
         });
     });
+
+
 
     // Search Popup JS
     $('.close-btn').on('click', function() {
