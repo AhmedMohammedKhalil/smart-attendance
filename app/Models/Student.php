@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Student extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    protected $guard = 'student';
+    protected $guard = 'students';
 
     /**
      * The attributes that are mass assignable.
@@ -43,6 +43,13 @@ class Student extends Authenticatable
         return $this->belongsTo(Department::class);
     }
 
-
-
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class,'enrollment')->withTimestamps();
+    }
+    
+    public function lectures()
+    {
+        return $this->belongsToMany(Lecture::class,'attendance')->withPivot('entrance_time')->as('attendance')->withTimestamps();
+    }
 }
