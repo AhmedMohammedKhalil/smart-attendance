@@ -16,7 +16,7 @@
                     @error('description') <span class="text-danger error">{{ $message }}</span>@enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
+                <button type="submit" class="btn btn-danger">حفظ التغييرات</button>
         </form>
     </div>
 </div>
