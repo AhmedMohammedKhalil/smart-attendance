@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
@@ -13,7 +14,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $departments=Department::All();
+        $page_name='جميع الاقسام';
+        return view('admins.departments.index',compact('departments','page_name'));
     }
 
     /**
@@ -23,7 +26,8 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        $page_name = 'إضافة قسم';
+        return view('admins.departments.create',compact('page_name'));
     }
 
 
@@ -45,9 +49,11 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function edit(Department $department)
+    public function edit(Request $r)
     {
-        //
+        $department = Department::whereId($r->id)->first();
+        $page_name = 'تعديل القسم';
+        return view('admins.departments.edit',compact('department','page_name'));
     }
 
 
@@ -58,8 +64,9 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function delete(Request $r)
     {
-        //
+        Department::destroy($r->id);
+        return redirect()->route('admin.departments.index');
     }
 }
