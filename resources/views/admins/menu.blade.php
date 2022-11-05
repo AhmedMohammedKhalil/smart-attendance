@@ -6,7 +6,7 @@
             </li>
 
             <li>
-                <a href="{{ '' }}">إدارة الأقسام</a>
+                <a href="{{ route('admin.departments.index') }}">إدارة الأقسام</a>
             </li>
 
             <li>

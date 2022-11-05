@@ -30,6 +30,13 @@ Route::middleware(['auth:admin'])->name('admin.')->prefix('admin')->group(functi
     Route::get('/settings','AdminController@settings')->name('settings');
     Route::get('/changePassword','AdminController@changePassword')->name('changePassword');
     Route::get('/logout','AdminController@logout')->name('logout');
+    //Department admin routes
+    Route::prefix('/departments')->name('departments.')->group(function(){
+        Route::get('/','DepartmentController@index')->name('index');
+        Route::get('/create','DepartmentController@create')->name('create');
+        Route::get('/edit','DepartmentController@edit')->name('edit');
+        Route::get('/delete','DepartmentController@delete')->name('delete');
+    });
 });
 
 
