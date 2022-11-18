@@ -19,7 +19,7 @@ class ProfessorFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->firstNameFemale().' '.$this->faker->firstNameMale(),
+            'name' => $this->faker->firstNameMale().' '.$this->faker->firstNameMale(),
             'email' => $this->faker->unique()->safeEmail(),
             'gender'=> 'ذكر' ,
             'phone'=>'12345678',
