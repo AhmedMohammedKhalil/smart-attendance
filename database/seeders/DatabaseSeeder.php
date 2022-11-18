@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeeder::class);
         \App\Models\Admin::factory(3)->create();
         $this->call(DepartmentSeeder::class);
-        \App\Models\Professor::factory(20)->create();
+        \App\Models\Professor::factory(10)->create();
         $this->call(SubjectSeeder::class);
     }
 }

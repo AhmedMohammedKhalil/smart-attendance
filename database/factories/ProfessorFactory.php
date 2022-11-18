@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -21,10 +21,10 @@ class ProfessorFactory extends Factory
         return [
             'name' => $this->faker->firstNameFemale().' '.$this->faker->firstNameMale(),
             'email' => $this->faker->unique()->safeEmail(),
-            'gender'=> 'انثي' ,
-            'phone'=>'12345678',     
+            'gender'=> 'ذكر' ,
+            'phone'=>'12345678',
             'password' => Hash::make('123456789'), // password
-            'department_id'=>$this->faker->numberBetween(1,4),
+            'department_id'=>Department::select('*')->inRandomOrder()->first()->id
         ];
     }
 }
