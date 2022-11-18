@@ -19,9 +19,9 @@ class ProfessorFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->firstNameFemale().' '.$this->faker->firstNameMale(),
+            'name' => $this->faker->firstNameMale().' '.$this->faker->firstNameMale(),
             'email' => $this->faker->unique()->safeEmail(),
-            'gender'=> 'انثي' ,
+            'gender'=> 'ذكر' ,
             'phone'=>'12345678',     
             'password' => Hash::make('123456789'), // password
             'department_id'=>$this->faker->numberBetween(1,4),
