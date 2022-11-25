@@ -52,4 +52,12 @@ Route::middleware(['auth:professor'])->name('professor.')->prefix('professor')->
     Route::get('/settings','ProfessorController@settings')->name('settings');
     Route::get('/changePassword','ProfessorController@changePassword')->name('changePassword');
     Route::get('/logout','ProfessorController@logout')->name('logout');
+
+    //Subject Professor routes
+    Route::prefix('/subjects')->name('subjects.')->group(function(){
+        Route::get('/','SubjectController@index')->name('index');
+        Route::get('/create','SubjectController@create')->name('create');
+        Route::get('/edit','SubjectController@edit')->name('edit');
+        Route::get('/delete','SubjectController@delete')->name('delete');
+    });
 });
