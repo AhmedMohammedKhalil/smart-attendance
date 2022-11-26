@@ -32,6 +32,22 @@
                         <span class="tag text-dark">{{$s->approval}}</span>     
                         <hr>
                         <div class="row">
+
+                            @if ($s->lectures->count()>0 || $s->students->count()>0)
+                                <div class="col-6 btn btn-outline">
+                                        <a href="{{ route('professor.subjects.edit',['id'=>$s->id]) }}">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                            </div>
+                            <div class="col-6 btn">
+                                
+                                        <a href="{{ route('professor.subjects.show',['id'=>$s->id]) }}">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </a>
+                            
+                            </div>
+                            @else
+
                             <div class="col-4 btn btn-outline">
                                         <a href="{{ route('professor.subjects.edit',['id'=>$s->id]) }}">
                                             <i class="fa-solid fa-pen-to-square"></i>
@@ -39,14 +55,11 @@
                             </div>
                             <div class="col-4 btn">
                                 
-                                        <a href="{{ route('professor.subjects.edit',['id'=>$s->id]) }}">
+                                        <a href="{{ route('professor.subjects.show',['id'=>$s->id]) }}">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>
                             
                             </div>
-                            @if ($s->lectures->count()>0 || $s->students->count()>0)
-
-                            @else 
                             <div class="col-4 btn">
                                         <a href="{{ route('professor.subjects.delete',['id'=>$s->id]) }}">
                                                                             <i class="fa-sharp fa-solid fa-trash"></i>

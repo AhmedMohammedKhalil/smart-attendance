@@ -43,9 +43,11 @@ class SubjectController extends Controller
      * @param  \App\Models\Subject  $department
      * @return \Illuminate\Http\Response
      */
-    public function show(Subject $department)
+    public function show(Request $r)
     {
-        //
+        $subject = Subject::whereId($r->id)->first();
+        $page_name = 'عرض المادة';
+        return view('professors.subjects.show', compact('subject', 'page_name'));
     }
 
     /**
@@ -73,6 +75,35 @@ class SubjectController extends Controller
     {
         Subject::destroy($r->id);
         return redirect()->route('professors.subjects.index');
+    }
+
+    public function getAll()
+    {
+        $need_approval_subjects = Subject::where([
+            ['approval', '=', "لم يتم الرد"],
+                ])->get();
+
+        $all_subjects = Subject::where([
+                    ['approval', '!=', "لم يتم الرد"],
+                        ])->get();
+
+        $page_name = 'جميع المواد';
+        return view('admins.subjects.getAll', compact('need_approval_subjects','all_subjects', 'page_name'));
+    }
+
+    public function accept(Request $r)
+    {
+        $subject = Subject::whereId($r->id)->first();
+        $subject->approval="موافقة";
+        $subject->update();
+        return redirect()->route('admin.subjects.getAll');
+    }
+    public function reject(Request $r)
+    {
+        $subject = Subject::whereId($r->id)->first();
+        $subject->approval="مرفوضة";
+        $subject->update();
+        return redirect()->route('admin.subjects.getAll');
     }
 
 }

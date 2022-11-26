@@ -10,7 +10,7 @@
             </li>
 
             <li>
-                <a href="{{ '' }}">إدارة المواد</a>
+                <a href="{{ route('admin.subjects.getAll') }}">إدارة المواد</a>
             </li>
 
             <li>
