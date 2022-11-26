@@ -5,7 +5,7 @@
                 <a href="{{ route('professor.profile') }}">البروفايل</a>
             </li>
             <li>
-                <a href="{{ '' }}">إدارة المواد</a>
+                <a href="{{ route('professor.subjects.index') }}">إدارة المواد</a>
             </li>
             <li>
                 <a href="{{ route('professor.settings') }}">الإعدادات</a>
