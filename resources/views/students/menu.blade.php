@@ -5,7 +5,7 @@
                 <a href="{{ route('student.profile') }}">البروفايل</a>
             </li>
             <li>
-                <a href="{{ '' }}"> المواد</a>
+                <a href=""> المواد</a>
             </li>
             <li>
                 <a href="{{ route('student.settings') }}">الإعدادات</a>

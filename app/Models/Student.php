@@ -45,10 +45,10 @@ class Student extends Authenticatable
 
     public function subjects()
     {
-        return $this->belongsToMany(Subject::class,'enrollment')->withTimestamps();
+        return $this->belongsToMany(Subject::class,'enrollment')->as('enrollments')->withTimestamps();
     }
-    
-    public function lectures()
+
+    public function attendance()
     {
         return $this->belongsToMany(Lecture::class,'attendance')->withPivot('entrance_time')->as('attendance')->withTimestamps();
     }

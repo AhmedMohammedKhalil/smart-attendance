@@ -34,4 +34,9 @@ class StudentController extends Controller
         $request->session()->invalidate();
         return redirect()->route('home');
     }
+
+
+    public function recordAttendance() {
+
+    }
 }

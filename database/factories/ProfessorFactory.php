@@ -22,7 +22,7 @@ class ProfessorFactory extends Factory
             'name' => $this->faker->firstNameMale().' '.$this->faker->firstNameMale(),
             'email' => $this->faker->unique()->safeEmail(),
             'gender'=> 'ذكر' ,
-            'phone'=>'12345678',
+            'phone'=>'695'.rand(1,9).rand(1,9).rand(1,9).rand(1,9).rand(1,9),
             'password' => Hash::make('123456789'), // password
             'department_id'=>Department::select('*')->inRandomOrder()->first()->id
         ];

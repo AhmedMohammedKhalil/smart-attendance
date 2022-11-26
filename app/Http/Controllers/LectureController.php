@@ -6,21 +6,10 @@ use App\Models\Lecture;
 
 class LectureController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
+
     public function create()
     {
         //
@@ -28,37 +17,26 @@ class LectureController extends Controller
 
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Lecture  $lecture
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Lecture $lecture)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Lecture  $lecture
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Lecture $lecture)
+    public function show()
     {
         //
     }
 
 
+    public function edit()
+    {
+        //
+    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Lecture  $lecture
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Lecture $lecture)
+
+    public function close()
+    {
+        //
+    }
+
+
+    public function delte()
     {
         //
     }

@@ -1,12 +1,11 @@
 @extends('admins.layout')
 @section('section')
-<div class="instructor-content">
-    
-    <section class="cart-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <form>
+    <div class="instructor-content">
+
+        <section class="cart-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
                         <div class="cart-wraps">
                             <div class="coupon-cart">
                                 <div class="row">
@@ -27,51 +26,52 @@
 
                                         </tr>
                                     </thead>
-                                    @if (count($departments)>0)
-                                    <tbody>
-                                    @foreach ($departments as $d )
-                                        <tr>                                            
-                                            <td class="product-name">
-                                                <a href="#">{{$d->name}}</a>
-                                            </td>
-                                            <td class="product-name">
-                                                <a href="#">{{$d->description}}</a>
-                                            </td>
-                                            <td class="product-subtotal">
-                                                <div class="row">
-                                                <div class="col-6">
-                                                    <a href="{{ route('admin.departments.edit',['id'=>$d->id]) }}" class="remove">
-                                                        <i class="fa-solid fa-pen-to-square"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="col-6">
-                                                    <a href="{{ route('admin.departments.delete',['id'=>$d->id]) }}" class="remove">
-                                                        <i class="bx bx-x"></i>
-                                                    </a>
-                                                </div>
-                                                </div>    
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                    
+                                    @if (count($departments) > 0)
+                                        <tbody>
+                                            @foreach ($departments as $d)
+                                                <tr>
+                                                    <td class="product-name">
+                                                        <a href="#">{{ $d->name }}</a>
+                                                    </td>
+                                                    <td class="product-name">
+                                                        <a href="#">{{ $d->description }}</a>
+                                                    </td>
+                                                    <td class="product-subtotal">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <a href="{{ route('admin.departments.edit', ['id' => $d->id]) }}"
+                                                                    class="remove">
+                                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <a href="{{ route('admin.departments.delete', ['id' => $d->id]) }}"
+                                                                    class="remove">
+                                                                    <i class="bx bx-x"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+
                                 </table>
-                                @else
-                                    <table>
-                                        <tr>
-                                                <div>
-                                                        <p >لا يوجد اقسام</p>
-                                                </div>
-                                        </tr>
-                                    </table>
+                            @else
+                                <table>
+                                    <tr>
+                                        <div>
+                                            <p>لا يوجد اقسام</p>
+                                        </div>
+                                    </tr>
+                                </table>
                                 @endif
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-</div>
+    </div>
 @endsection

@@ -47,4 +47,9 @@ class Professor extends Authenticatable
     {
         return $this->hasMany(Subject::class);
     }
+
+
+    public function acceptedSubjects() {
+        return $this->subjects()->where('approval','موافقة');
+    }
 }

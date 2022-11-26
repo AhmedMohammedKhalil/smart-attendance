@@ -22,7 +22,7 @@ class Lecture extends Model
     {
         return $this->belongsTo(Subject::class);
     }
-    public function students()
+    public function attendance()
     {
         return $this->belongsToMany(Student::class,'attendance')->withPivot('entrance_time')->as('attendance')->withTimestamps();
     }

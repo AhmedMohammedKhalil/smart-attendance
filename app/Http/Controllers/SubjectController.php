@@ -60,4 +60,14 @@ class SubjectController extends Controller
     {
         //
     }
+
+
+    public function createStudent() {
+
+    }
+
+
+    public function deleteStudent() {
+
+    }
 }

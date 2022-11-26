@@ -15,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/search', 'HomeController@search')->name('search');
+Route::get('/home/professor', 'HomeController@showProfessor')->name('home.professor');
+Route::get('/all-departments', 'HomeController@departments')->name('all.departments');
+Route::get('/all-departments/department', 'HomeController@showDepartment')->name('all.depaertments.department');
+Route::get('/all-departments/department/subject', 'HomeController@departmentSubject')->name('all.depaertments.department.subject');
+Route::get('/all-departments/department/professor', 'HomeController@departmentProfessor')->name('all.depaertments.department.professor');
+
+Route::get('/all-subjects', 'HomeController@subjects')->name('all.subjects');
+Route::get('/all-subjects/subject', 'HomeController@showSubject')->name('all.subjects.subject');
+
 Route::middleware(['guest:admin', 'guest:student' , 'guest:professor'])->group(function () {
     Route::get('/admin/login', 'AdminController@showLoginForm')->name('admin.login');
     Route::get('/student/login', 'StudentController@showLoginForm')->name('student.login');
@@ -52,4 +62,21 @@ Route::middleware(['auth:professor'])->name('professor.')->prefix('professor')->
     Route::get('/settings','ProfessorController@settings')->name('settings');
     Route::get('/changePassword','ProfessorController@changePassword')->name('changePassword');
     Route::get('/logout','ProfessorController@logout')->name('logout');
+
+    Route::prefix('/lectures')->name('lectures.')->group(function(){
+        Route::get('/create','LectureController@create')->name('create');
+        Route::get('/edit','LectureController@edit')->name('edit');
+        Route::get('/show','LectureController@show')->name('show');
+        Route::get('/close','LectureController@close')->name('close');
+        Route::get('/delete','LectureController@delete')->name('delete');
+
+    });
+
+    Route::prefix('/subjects')->name('subjects.')->group(function(){
+        Route::prefix('/subjects')->name('subjects.')->group(function(){
+            Route::get('/create','SubjectController@createStudent')->name('create');
+            Route::get('/delete','SubjectController@deleteStudent')->name('delete');
+        });
+    });
+
 });

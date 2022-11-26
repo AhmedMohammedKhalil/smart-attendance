@@ -32,6 +32,8 @@ class Subject extends Model
     }
     public function students()
     {
-        return $this->belongsToMany(Student::class,'enrollment')->withTimestamps();
+        return $this->belongsToMany(Student::class,'enrollment')->as('enrollments')->withTimestamps();
     }
+
+
 }
