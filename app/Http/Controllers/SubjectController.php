@@ -8,19 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 class SubjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     *   ['approval', '=',"تم الموافقة"]
-     */
+
     public function index()
     {
         $professor_id = Auth::guard('professor')->user()->id;
         $subjects = Subject::where([
             ['professor_id', '=', $professor_id],
                 ])->get();
-       // dd($subjects);
         $page_name = 'المواد';
         return view('professors.subjects.index', compact('subjects', 'page_name'));
     }
@@ -100,13 +94,19 @@ class SubjectController extends Controller
         return redirect()->route('admin.subjects.getAll');
     }
 
-    public function createStudent() {
-
+    public function createStudent(Request $r) {
+        $subject_id = $r->id;
+        $page_name = 'إضافة طالب';
+        return view('professors.students.create',compact('page_name','subject_id'));
     }
 
 
-    public function deleteStudent() {
-
+    public function deleteStudent(Request $r) {
+        $subject_id = $r->subject_id;
+        $subject = Subject::whereId($subject_id)->first();
+        $student_id = $r->student_id;
+        $subject->students()->detach($student_id);
+        return redirect()->route('professor.subjects.show',['id'=>$subject_id]);
     }
     public function reject(Request $r)
     {
