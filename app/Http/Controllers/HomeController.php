@@ -37,7 +37,8 @@ class HomeController extends Controller
     public function departmentSubject(Request $r)
     {
         $subject = Subject::whereId($r->id)->first();
-        return view('department-subject',compact('subject'));
+        $lectures = $subject->lectures()->latest()->get();
+        return view('department-subject',compact('subject','lectures'));
     }
 
      public function departmentProfessor(Request $r)
@@ -55,7 +56,8 @@ class HomeController extends Controller
     public function showSubject(Request $r)
     {
         $subject = Subject::whereId($r->id)->first();
-        return view('subject-details',compact('subject'));
+        $lectures = $subject->lectures()->latest()->get();
+        return view('subject-details',compact('subject','lectures'));
     }
 
     public function showDepartment(Request $r)
