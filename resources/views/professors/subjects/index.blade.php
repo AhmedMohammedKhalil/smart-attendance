@@ -18,7 +18,7 @@
             @foreach ($subjects as $s )
                 <div class="col-4">
                     <div class="single-course">
-                    <a href="single-course.html">
+                    <a href="#">
                         <img src="{{ asset('img/course-img/course-img-'.rand(1,6).'.jpg') }}" alt="Image" />
                     </a>
                     <div class="course-content">
