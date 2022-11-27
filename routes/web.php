@@ -73,7 +73,7 @@ Route::middleware(['auth:professor'])->name('professor.')->prefix('professor')->
     Route::prefix('/lectures')->name('lectures.')->group(function(){
         Route::get('/create','LectureController@create')->name('create');
         Route::get('/edit','LectureController@edit')->name('edit');
-        Route::get('/show','LectureController@show')->name('show');
+        Route::get('/showAttendance','LectureController@showAttendance')->name('showAttendance');
         Route::get('/close','LectureController@close')->name('close');
         Route::get('/delete','LectureController@delete')->name('delete');
 

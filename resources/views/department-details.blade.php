@@ -9,5 +9,5 @@
         </div>
     </div>
 
-    @include('common.department')
+    @include('common.department', ['control' => false])
 @endsection

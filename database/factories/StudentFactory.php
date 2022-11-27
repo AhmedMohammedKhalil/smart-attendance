@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,13 @@ class StudentFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->firstNameMale().' '.$this->faker->firstNameMale(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'gender'=> 'ذكر' ,
+            'level' => $this->faker->randomElement(['المستوى الاول', 'المستوى الثانى', 'المستوى الثالث','المستوى الرابع']),
+            'phone'=>'695'.rand(1,9).rand(1,9).rand(1,9).rand(1,9).rand(1,9),
+            'password' => Hash::make('123456789'), // password
+            'department_id'=>Department::select('*')->inRandomOrder()->first()->id
         ];
     }
 }

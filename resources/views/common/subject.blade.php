@@ -20,7 +20,7 @@
     </div>
 </div>
 @auth('student')
-    <div class="blog-column-three-area ptb-100">
+    <div class="blog-column-three-area pb-70">
         <div class="container">
             <div class="section-title">
                 <h2>المحاضرات</h2>
@@ -29,9 +29,9 @@
             <div class="row">
                 @foreach ($subject->students as $s)
                     @if (auth('student')->user()->id == $s->id)
-                        @foreach ($s->lectures as $l)
+                        @foreach ($lectures as $l)
                             @if ($l->status == 'متاح')
-                                <div class="col-lg-4 col-md-6">
+                                <div class="col-lg-3 col-md-6">
                                     <div class="single-news">
                                         <a href="#">
                                             <img src="{{ $l->qr_url }}" alt="Image">
@@ -43,12 +43,15 @@
                                             </a>
                                             <p>{{ $l->created_at }}</p>
                                             @foreach ($l->attendance as $a)
-                                                @if ($a->id != auth('student')->user()->id)
+                                                @if ($a->student_id != auth('student')->user()->id)
                                                     <livewire:student.record-attendance :lec_id="$l->id" />
                                                 @else
                                                     <span>تم تسجيلك</span>
                                                 @endif
                                             @endforeach
+                                            @if (count($l->attendance) == 0)
+                                                <livewire:student.record-attendance :lec_id="$l->id" />
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +59,7 @@
                                 <h3>لا يوجد محاضرة متاحة الان</h3>
                             @endif
                         @endforeach
-                        @if (count($s->lectures) == 0)
+                        @if (count($subject->lectures) == 0)
                             <h3>لا يوجد محاضرات للمادة</h3>
                         @endif
                     @endif
@@ -68,7 +71,7 @@
 
 @auth('professor')
     @if ($subject->professor_id == @auth('professor')->user()->id)
-        <section class="product-details-area ptb-70">
+        <section class="product-details-area pb-70">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-12 col-md-12">
@@ -97,7 +100,7 @@
                                                         <div class="coupon-cart">
                                                             <div class="row">
                                                                 <div class="col-lg-4 col-sm-5 offset-lg-4 text-center">
-                                                                    <a href="{{ route('professor.lectures.create', ['id', $subject->id]) }}"
+                                                                    <a href="{{ route('professor.lectures.create', ['id' => $subject->id]) }}"
                                                                         class="default-btn update mx-auto">
                                                                         اضف محاضرة
                                                                     </a>
@@ -105,7 +108,7 @@
                                                             </div>
                                                         </div>
                                                     @endif
-                                                    <div class="cart-table table-responsive mt-4">
+                                                    <div class="cart-table mt-4">
                                                         <table class="table table-bordered">
                                                             <thead>
                                                                 <tr>
@@ -117,41 +120,40 @@
                                                             </thead>
                                                             @if (count($subject->lectures) > 0)
                                                                 <tbody>
-                                                                    @foreach ($subject->lectures as $l)
+                                                                    @foreach ($lectures as $l)
                                                                         <tr>
                                                                             <td class="product-name">
                                                                                 <a href="#">{{ $l->title }}</a>
                                                                             </td>
                                                                             <td class="product-name">
-                                                                                <a href="#">{{ $d->status }}</a>
+                                                                                <a href="#">{{ $l->status }}</a>
                                                                             </td>
                                                                             <td class="product-name">
-                                                                                <a href="#">{{ $d->created_at }}</a>
+                                                                                <a href="#">{{ $l->created_at }}</a>
                                                                             </td>
                                                                             <td class="product-subtotal">
                                                                                 <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <a href="{{ route('professor.lectures.show', ['id' => $l->id]) }}"
+                                                                                    <div class="col-5">
+                                                                                        <a href="{{ route('professor.lectures.showAttendance', ['id' => $l->id]) }}"
                                                                                             class="remove"> عرض الغياب
                                                                                         </a>
                                                                                     </div>
                                                                                     @if ($control == true)
                                                                                         @if ($l->status != 'متاح')
-                                                                                            <div class="col-4">
+                                                                                            <div class="col-3">
                                                                                                 <a href="{{ route('professor.lectures.delete', ['id' => $l->id]) }}"
                                                                                                     class="remove">حذف
                                                                                                 </a>
                                                                                             </div>
                                                                                         @else
-                                                                                            <div class="col-4">
+                                                                                            <div class="col-3">
                                                                                                 <a href="{{ route('professor.lectures.edit', ['id' => $l->id]) }}"
                                                                                                     class="remove">تعديل
                                                                                                 </a>
                                                                                             </div>
-                                                                                            <div class="col-4">
-                                                                                                <a href="{{ route('professor.lectures.close', ['id' => $f->id]) }}"
+                                                                                            <div class="col-3">
+                                                                                                <a href="{{ route('professor.lectures.close', ['id' => $l->id]) }}"
                                                                                                     class="remove"> غلق
-                                                                                                    المحاضرة
                                                                                                 </a>
                                                                                             </div>
                                                                                         @endif
@@ -163,13 +165,11 @@
                                                                     @endforeach
                                                                 </tbody>
                                                             @else
-                                                                <tbody>
+                                                                <table>
                                                                     <tr aria-colspan="4">
-                                                                        <div>
-                                                                            <p>لا يوجد محاضرات</p>
-                                                                        </div>
+                                                                        <p class="text-center">لا يوجد محاضرات</p>
                                                                     </tr>
-                                                                </tbody>
+                                                                </table>
                                                             @endif
                                                         </table>
                                                     </div>
@@ -191,7 +191,7 @@
                                                             </div>
                                                         </div>
                                                     @endif
-                                                    <div class="cart-table table-responsive mt-4">
+                                                    <div class="cart-table mt-4">
                                                         <table class="table table-bordered">
                                                             <thead>
                                                                 <tr>
@@ -199,7 +199,9 @@
                                                                     <th scope="col">الايميل</th>
                                                                     <th scope="col">المستوى</th>
                                                                     <th scope="col">الموبايل</th>
-                                                                    <th scope="col">الإعدادات</th>
+                                                                    @if ($control == true)
+                                                                        <th scope="col">الإعدادات</th>
+                                                                    @endif
                                                                 </tr>
                                                             </thead>
                                                             @if (count($subject->students) > 0)
@@ -218,28 +220,28 @@
                                                                             <td class="product-name">
                                                                                 <a href="#">{{ $s->phone }}</a>
                                                                             </td>
-                                                                            <td class="product-subtotal">
-                                                                                <div class="row">
-                                                                                    @if ($control == true)
+                                                                            @if ($control == true)
+                                                                                <td class="product-subtotal">
+                                                                                    <div class="row">
+
                                                                                         <div class="col-6">
                                                                                             <a href="{{ route('professor.subjects.students.delete', ['subject_id' => $subject->id, 'student_id' => $s->id]) }}"
                                                                                                 class="remove">حذف
                                                                                             </a>
                                                                                         </div>
-                                                                                    @endif
-                                                                                </div>
-                                                                            </td>
+
+                                                                                    </div>
+                                                                                </td>
+                                                                            @endif
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
                                                             @else
-                                                                <tbody>
+                                                                <table>
                                                                     <tr>
-                                                                        <div>
-                                                                            <p>لا يوجد طلاب</p>
-                                                                        </div>
+                                                                        <p class="text-center">لا يوجد طلاب</p>
                                                                     </tr>
-                                                                </tbody>
+                                                                </table>
                                                             @endif
                                                         </table>
                                                     </div>

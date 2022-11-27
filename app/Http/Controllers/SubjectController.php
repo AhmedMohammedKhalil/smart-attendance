@@ -46,8 +46,9 @@ class SubjectController extends Controller
     public function show(Request $r)
     {
         $subject = Subject::whereId($r->id)->first();
+        $lectures = $subject->lectures()->latest()->get();
         $page_name = 'عرض المادة';
-        return view('professors.subjects.show', compact('subject', 'page_name'));
+        return view('professors.subjects.show', compact('subject','lectures', 'page_name'));
     }
 
     /**

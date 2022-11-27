@@ -7,5 +7,5 @@
             </div>
         </div>
     </div>
-    @include('common.professor')
+    @include('common.professor', ['control' => false])
 @endsection
