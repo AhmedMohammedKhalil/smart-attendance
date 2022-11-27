@@ -31,7 +31,7 @@
                     @if (auth('student')->user()->id == $s->id)
                         @foreach ($lectures as $l)
                             @if ($l->status == 'متاح')
-                                <div class="col-lg-3 col-md-6">
+                                <div class="col-lg-4 col-md-6">
                                     <div class="single-news">
                                         <a href="#">
                                             <img src="{{ $l->qr_url }}" alt="Image">

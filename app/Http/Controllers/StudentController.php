@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,6 +35,18 @@ class StudentController extends Controller
         Auth::guard('student')->logout();
         $request->session()->invalidate();
         return redirect()->route('home');
+    }
+
+    public function showSubjects() {
+        return view('students.subjects',['page_name' => 'المواد']);
+    }
+
+    public function showSubject(Request $r) {
+
+        $subject = Subject::whereId($r->id)->first();
+        $lectures = $subject->lectures()->latest()->get();
+        $page_name = $subject->name;
+        return view('students.subject',compact('subject','lectures','page_name'));
     }
 
 

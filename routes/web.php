@@ -62,6 +62,12 @@ Route::middleware(['auth:student'])->name('student.')->prefix('student')->group(
     Route::get('/settings','StudentController@settings')->name('settings');
     Route::get('/changePassword','StudentController@changePassword')->name('changePassword');
     Route::get('/logout','StudentController@logout')->name('logout');
+    Route::prefix('/subjects')->name('subjects.')->group(function(){
+        Route::get('/','StudentController@showSubjects')->name('index');
+        Route::get('/subject','StudentController@showSubject')->name('subject');
+    });
+
+
 });
 
 Route::middleware(['auth:professor'])->name('professor.')->prefix('professor')->group(function () {
