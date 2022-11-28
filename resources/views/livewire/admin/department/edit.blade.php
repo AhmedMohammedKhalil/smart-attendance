@@ -6,12 +6,12 @@
                     {{ session('error') }}
                 </div>
             @endif
-                <div class="form-group">
+                <div class="form-group pb-4">
                     <input type="text" wire:model.lazy='name' id="name" class="form-control" placeholder="إسم القسم">
                     @error('name') <span class="text-danger error">{{ $message }}</span>@enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group pb-4">
                     <textarea name="description"  wire:model.lazy='description' class="form-control" id="description" rows="6" placeholder="التفاصيل"></textarea>
                     @error('description') <span class="text-danger error">{{ $message }}</span>@enderror
                 </div>

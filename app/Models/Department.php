@@ -28,6 +28,11 @@ class Department extends Model
     {
         return $this->hasMany(Subject::class);
     }
+
+    public function acceptedSubjects() {
+        return $this->subjects()->where('approval','موافقة');
+    }
+
     public function professors()
     {
         return $this->hasMany(Professor::class);

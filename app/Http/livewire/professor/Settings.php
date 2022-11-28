@@ -23,7 +23,6 @@ class Settings extends Component
         $this->gender = auth('professor')->user()->gender == 'ذكر' ? 1 : 2 ;
         $this->department_id = auth('professor')->user()->department->id;
 
-
     }
 
     protected $messages = [

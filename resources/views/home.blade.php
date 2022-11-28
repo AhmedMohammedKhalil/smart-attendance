@@ -80,10 +80,10 @@
                     @else
                     <img src="{{asset('img/professors/'.$professor->id.'/'.$professor->photo)}}" alt="Image">
                     @endif
-                    <div class="teachers-content">
+                    <div class="teachers-content ">
                         <ul>
                             <li>
-                                <a href="#">المزيد</a>
+                                <a href="{{ route('home.professor',['id'=>$professor->id]) }}">المزيد</a>
                             </li>
                         </ul>
                         <h3>{{ $professor->name }}</h3>
