@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->integer('lecture_id')->unsigned();
             $table->integer('student_id')->unsigned();
-            $table->dateTime('entrance_time');
+            $table->dateTime('entrance_time')->default(new \DateTime());
             $table->foreign('lecture_id')
             ->references('id')
             ->on('lectures')->onDelete("cascade")->onUpdate("cascade");

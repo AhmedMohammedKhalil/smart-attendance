@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\Helper;
 use App\Models\Student;
 use App\Models\Subject;
 use Illuminate\Http\Request;
@@ -46,7 +47,8 @@ class StudentController extends Controller
         $subject = Subject::whereId($r->id)->first();
         $lectures = $subject->lectures()->latest()->get();
         $page_name = $subject->name;
-        return view('students.subject',compact('subject','lectures','page_name'));
+        $attendances = Helper::checkAttendance();
+        return view('students.subject',compact('subject','lectures','page_name','attendances'));
     }
 
 

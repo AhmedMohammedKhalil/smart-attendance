@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Professor;
+use App\Helper\Helper;
 use App\Models\Subject;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Professor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class SubjectController extends Controller
 {
 
@@ -41,8 +43,9 @@ class SubjectController extends Controller
     {
         $subject = Subject::whereId($r->id)->first();
         $lectures = $subject->lectures()->latest()->get();
+        $attendances = Helper::checkAttendance();
         $page_name = 'عرض المادة';
-        return view('professors.subjects.show', compact('subject','lectures', 'page_name'));
+        return view('professors.subjects.show', compact('subject','lectures', 'page_name','attendances'));
     }
 
     /**

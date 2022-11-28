@@ -6,10 +6,10 @@ use App\Models\Department;
 use App\Models\Professor;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use App\Helper\Helper;
 
 class HomeController extends Controller
 {
-
 
     public function index()
     {
@@ -33,7 +33,8 @@ class HomeController extends Controller
     {
         $subject = Subject::whereId($r->id)->first();
         $lectures = $subject->lectures()->latest()->get();
-        return view('department-subject',compact('subject','lectures'));
+        $attendances = Helper::checkAttendance();
+        return view('department-subject',compact('subject','lectures','attendances'));
     }
 
      public function departmentProfessor(Request $r)
@@ -52,7 +53,8 @@ class HomeController extends Controller
     {
         $subject = Subject::whereId($r->id)->first();
         $lectures = $subject->lectures()->latest()->get();
-        return view('subject-details',compact('subject','lectures'));
+        $attendances = Helper::checkAttendance();
+        return view('subject-details',compact('subject','lectures','attendances'));
     }
 
     public function showDepartment(Request $r)

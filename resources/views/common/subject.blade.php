@@ -20,15 +20,16 @@
     </div>
 </div>
 @auth('student')
-    <div class="blog-column-three-area pb-70">
-        <div class="container">
-            <div class="section-title">
-                <h2>المحاضرات</h2>
-                <img src="{{ asset('img/section-title-shape.png') }}" alt="Image" />
-            </div>
-            <div class="row">
-                @foreach ($subject->students as $s)
-                    @if (auth('student')->user()->id == $s->id)
+    @foreach ($subject->students as $s)
+        @if (auth('student')->user()->id == $s->id)
+            <div class="blog-column-three-area pb-70">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>المحاضرات</h2>
+                        <img src="{{ asset('img/section-title-shape.png') }}" alt="Image" />
+                    </div>
+                    <div class="row">
+
                         @foreach ($lectures as $l)
                             @if ($l->status == 'متاح')
                                 <div class="col-lg-4 col-md-6">
@@ -46,7 +47,7 @@
                                             @if (count($l->attendance) == 0)
                                                 <livewire:student.record-attendance :lec_id="$l->id" />
                                             @else
-                                                @if (in_array(auth('student')->user(), $l->attendance->toArray()))
+                                                @if (!in_array($l->id, $attendances))
                                                     <livewire:student.record-attendance :lec_id="$l->id" />
                                                 @else
                                                     <span>تم تسجيلك</span>
@@ -62,11 +63,11 @@
                         @if (count($subject->lectures) == 0)
                             <h3>لا يوجد محاضرات للمادة</h3>
                         @endif
-                    @endif
-                @endforeach
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        @endif
+    @endforeach
 @endauth
 
 @auth('professor')

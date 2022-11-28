@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lecture;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class LectureController extends Controller
@@ -23,7 +24,16 @@ class LectureController extends Controller
 
     public function showAttendance(Request $r)
     {
-        $lecture_id = $r->id;
+        $page_name = 'عرض الغياب والحضور';
+        $lecture=Lecture::whereId($r->id)->first();
+        $student_attended=$lecture->attendance()->get();
+        $ids = [];
+        foreach($student_attended as $s) {
+            array_push($ids,$s->id);
+        }
+        $all_students = Student::where('department_id',$lecture->subject->department_id)->get();
+        $student_absences = $all_students->whereNotIn('id',$ids);
+        return view('professors.lectures.showAttendance',compact('page_name','student_attended','student_absences'));
     }
 
 
