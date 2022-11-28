@@ -42,15 +42,14 @@
                                                 <h3>{{ $l->title }}</h3>
                                             </a>
                                             <p>{{ $l->created_at }}</p>
-                                            @foreach ($l->attendance as $a)
-                                                @if ($a->student_id != auth('student')->user()->id)
+                                            @if (count($l->attendance) == 0)
+                                                <livewire:student.record-attendance :lec_id="$l->id" />
+                                            @else
+                                                @if (!in_array(auth('student')->user(),$l->attendance->toArray()))
                                                     <livewire:student.record-attendance :lec_id="$l->id" />
                                                 @else
                                                     <span>تم تسجيلك</span>
                                                 @endif
-                                            @endforeach
-                                            @if (count($l->attendance) == 0)
-                                                <livewire:student.record-attendance :lec_id="$l->id" />
                                             @endif
                                         </div>
                                     </div>

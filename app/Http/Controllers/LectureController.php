@@ -23,7 +23,9 @@ class LectureController extends Controller
 
     public function showAttendance(Request $r)
     {
-        $lecture_id = $r->id;
+        $lecture=Lecture::whereId($r->id)->first();
+        $student_attended=$lecture->attendance()->latest()->get();
+        dd($student_attended);
     }
 
 
