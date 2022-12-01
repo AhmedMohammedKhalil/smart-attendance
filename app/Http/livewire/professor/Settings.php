@@ -79,7 +79,7 @@ class Settings extends Component
             Professor::whereId($this->professor_id)->update(array_merge($data,['photo' => $photoname]));
             $dir = public_path('img/professors/'.$this->professor_id);
             if(file_exists($dir))
-                File::deleteDirectories($dir);
+                File::deleteDirectory($dir);
             else
                 mkdir($dir);
             $this->photo->storeAs('img/professors/'.$this->professor_id,$photoname);

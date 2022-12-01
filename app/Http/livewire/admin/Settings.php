@@ -56,7 +56,7 @@ class Settings extends Component
             Admin::whereId($this->admin_id)->update(array_merge($validatedata,['photo' => $photoname]));
             $dir = public_path('img/admins/'.$this->admin_id);
             if(file_exists($dir))
-                File::deleteDirectories($dir);
+                File::deleteDirectory($dir);
             else
                 mkdir($dir);
 
